@@ -1,0 +1,54 @@
+# Maven
+target/
+!**/src/main/**
+!**/src/test/**
+
+# IDE
+.idea/
+*.iml
+*.iws
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Spring Boot
+application-*.properties
+application-*.yml
+!application.yml
+!application.properties
+
+# Redis
+dump.rdb
+
+# H2 Database
+*.db
+*.mv.db
+*.trace.db
+
+# Temporary files
+*.tmp
+*.temp
+cookies.txt
+
+# Test results
+test-results/
+surefire-reports/
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Security
+.env
+*.p12
+*.jks

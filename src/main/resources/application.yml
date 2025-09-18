@@ -1,0 +1,154 @@
+spring:
+  application:
+    name: spring-security-redis-session
+  
+  # H2 Database Configuration
+  datasource:
+    url: jdbc:postgresql://localhost:6000/spring-session
+    username: postgres
+    password: 1234
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        connection:
+          timeout: 20
+    show-sql: true
+  sql:
+    init:
+      mode: never
+
+  # Redis Configuration
+  data:
+    redis:
+      host: localhost
+      port: 6379
+      password:
+      timeout: 2000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+          max-wait: -1ms
+
+  # Session Configuration
+  session:
+    store-type: redis
+    redis:
+      namespace: spring:session
+      flush-mode: on_save
+      cleanup-cron: 0 * * * * *
+    timeout: 30m
+
+  # Security Configuration
+  security:
+    user:
+      name: admin
+      password: admin123
+      roles: ADMIN
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID:your-google-client-id}
+            client-secret: ${GOOGLE_CLIENT_SECRET:your-google-client-secret}
+            scope:
+              - openid
+              - email
+              - profile
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            client-name: Google
+
+          github:
+            client-id: ${GITHUB_CLIENT_ID:Ov23li9y9zFHucoWLt9O}
+            client-secret: ${GITHUB_CLIENT_SECRET:f8f77b42d83ab8ee2da965debcbf9a2f152c798d}
+            scope:
+              - user:email
+              - read:user
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            client-name: GitHub
+
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
+            token-uri: https://www.googleapis.com/oauth2/v4/token
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+            user-name-attribute: sub
+
+          github:
+            authorization-uri: https://github.com/login/oauth/authorize
+            token-uri: https://github.com/login/oauth/access_token
+            user-info-uri: https://api.github.com/user
+            user-name-attribute: id
+
+  # Mailtrap Configuration
+  mail:
+    host: ${EMAIL_HOST:sandbox.smtp.mailtrap.io}
+    port: ${EMAIL_PORT:2525}
+    username: ${EMAIL_USERNAME:005386051c13e3}
+    password: ${EMAIL_PASSWORD:e79fbe1d4ab3d8}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    test-connection: false
+
+# Server Configuration
+server:
+  port: 8080
+  servlet:
+    context-path: /api
+    session:
+      cookie:
+        name: JSESSIONID
+        http-only: true
+        secure: false # Set to true in production with HTTPS
+        same-site: lax
+        max-age: 1800 # 30 minutes
+        path: /
+
+# Management/Actuator Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,sessions
+  endpoint:
+    health:
+      show-details: always
+    sessions:
+      enabled: true
+
+# Application Properties
+app:
+  security:
+    jwt:
+      secret: mySecretKey
+      expiration: 86400000 # 24 hours
+    session:
+      max-sessions: -1
+      prevent-login-if-maximum-exceeded: false
+      invalid-session-url: /login?expired
+    password:
+      strength: 8
+  oauth2:
+    # Redirect frontend after successful OAuth2 authentication
+    authorized-redirect-uri: ${OAUTH2_REDIRECT_URI:http://localhost:5173/oauth2/redirect}
+
+  # Email Configuration
+  email:
+    from-address: ${EMAIL_FROM:noreply@yourapp.com}
+    from-name: ${EMAIL_FROM_NAME:Your App Name}
+    base-url: ${APP_BASE_URL:http://localhost:8080/api}
+    frontend-url: ${FRONTEND_URL:http://localhost:5173}
+    verification-expiry: ${EMAIL_VERIFICATION_EXPIRY:24}
+    password-reset-expiry: ${PASSWORD_RESET_EXPIRY:2}
+    email-change-expiry: ${EMAIL_CHANGE_EXPIRY:24}
+    rate-limit:
+      max-emails-per-hour: ${EMAIL_RATE_LIMIT:5}
+      max-emails-per-day: ${EMAIL_RATE_LIMIT_DAILY:20}

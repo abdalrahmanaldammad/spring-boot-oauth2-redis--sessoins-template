@@ -1,0 +1,3 @@
+-- Data initialization is handled programmatically by DataInitializationService
+-- This ensures proper password encoding and relationship management
+-- SQL mode is disabled in application.yml (mode: never)

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome!</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 300;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .greeting {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .message {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.8;
+            text-align: center;
+        }
+        .action-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            text-align: center;
+            margin: 10px;
+            transition: transform 0.2s;
+        }
+        .action-button:hover {
+            transform: translateY(-2px);
+            text-decoration: none;
+            color: white;
+        }
+        .button-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            border-top: 1px solid #eee;
+        }
+        .success-notice {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #155724;
+            text-align: center;
+        }
+        .feature-list {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .feature-item {
+            margin: 10px 0;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Welcome! 🎉</h1>
+        </div>
+        
+        <div class="content">
+            <div class="greeting">
+                Hi <span th:text="${user.firstName}">User</span>! 
+            </div>
+            
+            <div class="success-notice">
+                <strong>✅ Email Verified Successfully!</strong>
+                <br>
+                Your account is now fully activated and ready to use.
+            </div>
+            
+            <div class="message">
+                Welcome to <strong th:text="${appName}">Our App</strong>! We're thrilled to have you as part of our community.
+                <br><br>
+                Your email address has been successfully verified, and you now have access to all features.
+            </div>
+            
+            <div class="feature-list">
+                <h3 style="margin-top: 0; color: #333;">What you can do now:</h3>
+                <div class="feature-item">🔐 Secure login with your credentials</div>
+                <div class="feature-item">📱 Access all app features</div>
+                <div class="feature-item">🔄 Update your profile settings</div>
+                <div class="feature-item">🛡️ Change password anytime</div>
+                <div class="feature-item">📧 Receive important notifications</div>
+            </div>
+            
+            <div class="button-container">
+                <a th:href="${loginUrl}" class="action-button">
+                    🚀 Start Using App
+                </a>
+                <a th:href="${dashboardUrl}" class="action-button">
+                    📊 Go to Dashboard
+                </a>
+            </div>
+            
+            <div class="message" style="margin-top: 30px; font-size: 14px; color: #888;">
+                <strong>Need Help?</strong>
+                <br>
+                If you have any questions or need assistance getting started, 
+                our support team is here to help. Don't hesitate to reach out!
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>
+                Thank you for choosing <span th:text="${appName}">Our App</span>!
+                <br>
+                We're excited to see what you'll accomplish.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Your Email Address</title>
+    <style>
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 300;
+        }
+        .content {
+            padding: 40px 30px;
+        }
+        .greeting {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .message {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+        .verify-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: bold;
+            text-align: center;
+            margin: 20px 0;
+            transition: transform 0.2s;
+        }
+        .verify-button:hover {
+            transform: translateY(-2px);
+            text-decoration: none;
+            color: white;
+        }
+        .button-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 20px 30px;
+            text-align: center;
+            font-size: 14px;
+            color: #666;
+            border-top: 1px solid #eee;
+        }
+        .expiry-notice {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #856404;
+        }
+        .security-note {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #0c5460;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Email Verification</h1>
+        </div>
+        
+        <div class="content">
+            <div class="greeting">
+                Hi <span th:text="${user.firstName}">User</span>! 👋
+            </div>
+            
+            <div class="message">
+                Welcome to <strong th:text="${appName}">Our App</strong>! We're excited to have you on board.
+                <br><br>
+                To get started, please verify your email address by clicking the button below:
+            </div>
+            
+            <div class="button-container">
+                <a th:href="${verificationUrl}" class="verify-button">
+                    ✓ Verify Email Address
+                </a>
+            </div>
+            
+            <div class="expiry-notice">
+                <strong>⏰ Important:</strong> This verification link will expire in 
+                <span th:text="${expirationHours}">24</span> hours for security reasons.
+            </div>
+            
+            <div class="security-note">
+                <strong>🔒 Security Tip:</strong> If you didn't create an account with us, 
+                please ignore this email. Your security is our priority!
+            </div>
+            
+            <div class="message" style="margin-top: 30px; font-size: 14px;">
+                If the button doesn't work, you can copy and paste this link into your browser:
+                <br>
+                <a th:href="${verificationUrl}" th:text="${verificationUrl}" style="color: #667eea; word-break: break-all;">
+                    Verification Link
+                </a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>
+                This email was sent by <span th:text="${appName}">Our App</span>
+                <br>
+                If you have any questions, please don't hesitate to contact our support team.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
